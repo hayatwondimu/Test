@@ -1,0 +1,39 @@
+extensions ex
+.exe (means it is an application that has been downloaded, .exe is one example)
+in linux .rpm shows that it is a software that has been downloaded (using yum or rpm)
+rpm --> redhat package manager
+
+
+
+wget command... and use link to download
+curl command ...and use link to download
+ansible ... quicker way to make changes for groups instead of one by one
+echo
+
+cd ../dir (going back enough to go forward)
+
+
+soft links and hard links (quicker access)   can't do a soft link to a directory,
+hard link is file to file (changes made in one file mirrors the other)
+soft link is directory to directory
+
+soft link -->   #ln -s Source Destination
+Modern SATA and USB drives are represented like sda, sdb etc. Linux stores every device
+in /dev directory. So, the absolute path for first SATA hard drive will be /dev/sda.
+The path to cdrom will be /dev/cdrom. The first partition will be represented as /dev/sda1, the second as /dev/sda2, and so on.
+
+#mount -rw
+#mount -o
+remove partion from Command lines- the vi into fstab and  should not have the UID (dev ID)
+fdisk -l
+/etc/fstab (where all UID for devices are)
+to remove partition
+1. umount
+2. vi to /etc/fstab ....remov UID of the partition you want to remove (IF THIS STEP IS SKIPPED, SYSTEM will CRASH)
+fdisk -cu /dev/sda1
+m (to list and find command)..... hit d for delete ,
+it will ask which partition from that HD
+
+fdisk -L  /dev/sdb
+
+BlkID /dev/sda  --- will give you the UID of the partition

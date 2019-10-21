@@ -1,0 +1,43 @@
+Storage management allows for the computer hard drive, which stores the OS and data, to be manipulated and customized as needed.
+
+What is a partition? In Linux, when partitioning a hard drive, it refers to the logically separated space.
+It is a logical container which is used to house filesystems, where operating systems, applications, and data is stored on.
+A single partition may span the entirety of a physical storage device.
+
+What is a File System?
+A file system provides a way of separating the data on the drive into individual pieces, which are the files.
+It also provides a way to store data about these files for example, their filenames, permissions, and other attributes.
+The file system also provides an index which is a list of the files on the drive and where they are located on the drive,
+so the operating system can see what’s on the drive in one place rather than combing through the entire drive to find a file.
+
+Your operating system needs to understand a file system so it can display its contents, open files, and save files to it.
+If your operating system doesn’t understand a file system, you may be able to install a file system driver that provides support
+or you just can’t use that file system with that operating system.
+
+Partitioning your disk..
+/root partition
+The /root directory is the home directory of the user account for system administration.
+A 3.0 GB root (/) partition allows you to install a minimal installation, while a 5.0 GB root partition lets you perform a full installation
+
+/boot partition
+Contains the OS kernel which allows your system to boot the Linux, along with files used during the bootstrap process.
+For most users, a 250 MB boot partition is sufficient. Note that normally the /boot partition is created automatically by the installer.
+However, if the /root partition is larger than 2 TB and UEFI is used for booting, you need to create a separate /boot partition
+that is smaller than 2 TB to boot the machine successfully.
+
+/swap partition
+You need one partition that will be used as Linux swap space. This is space on your hard drive that can be used as virtual memory. Virtual
+memory allows your computer to run large programs and perform complex tasks even if it does not have enough physical RAM to do the job.
+It is lot slower than physical RAM, but it still works.
+
+
+
+Historically, the general rule for swap partition size was to allocate twice the amount of physical RAM. But as computers have now gained larger
+memory capacities, this rule is outdated. The basic idea is that if you are short on RAM with plenty of drive space, go large. If you’re
+short on drive space and have lots of RAM, go small.
+
+Mount/ Mount point
+The way Linux works is that it puts everything onto a hierarchical tree.  If you have another partition or disk, it gets “mounted” as
+a branch in a specific folder, usually /media or /mnt.  The directory that a partition gets mounted to is called a “mount point”.
+This method works better with Linux’s tree structure, and you can mount partitions as folders nearly anywhere.  In Windows, this is not so easily done;
+new partitions generally show up as separate drives.  In addition, Linux can work with many more types of file systems natively than Windows.

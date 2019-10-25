@@ -1,0 +1,62 @@
+Boot Management
+1. 	List the Run Levels in Linux?
+RL 0 -halt
+RL 1- single user
+RL 2- multiuser no NFS
+RL 3 -Multiuser CLI
+RL 4 -unused (research)
+RL 5 - multiuser GUI
+RL 6 -Reboot
+2. 	What is the configuration file for the run levels?
+/etc/sysconfig/network
+3. 	What ids the configuration file for the Linux Kernel?
+/boot/grub/grub.conf
+Account Management
+4. 	Create 2 new users, Steve and Jerry on your VM giving the user steve the name of “Steve Doe” and Jerry the name of “Jerry Test”
+useradd -c "Steve Doe" Sdoe
+useradd -c "Jerry Test" Jtest
+5. 	Create a password for each user as “mts1234”
+passwd Sdoe
+mts1234
+passwd Jtest
+mts1234
+6. 	Ensure both users have to change their passwords upon their first log in.
+passwd -e Sdoe OR chage -d 0 Sdoe
+passwd -e Jtest OR chage -d 0 Jtest
+7. 	Create these groups: Dev & Ops
+Groupadd Dev
+Groupadd Ops
+8. 	For Jerry, ensure his secondary group is Dev and for Steve ensure his secondary group as Ops.
+Jtest -aG Dev (WRONG)       usermod -G Dev Jtest (Right)
+Sdoe -aG Ops (WRONG)      usermod -G Ops Sdoe (Right)
+Server Migration Management.
+9. 	Create a parenting Dir under the root file system named test1, test2, test3 and test4.
+mkdir -p /test1/test2/test3/test4
+10.  Directories test2’s group owner should be Dev and test3 group owner should be ops
+chown :Dev test1/test2
+  OR
+chgrp Dev test1/test2
+
+chown :Ops test1/test2/test3
+OR
+chgrp Ops test1/test2
+11.  Using rsync, copy the test2 file located on server 10.1.11.124 under /tmp/ to Jerry’s and Steve’s home dir.
+rsync server@10.1.11.124:/tmp/test2 /Jtest/home
+rsync server@10.1.11.124:/tmp/test2    /Sdoe/home
+12.  From that file, export all lines with the word selinux to a new file in test2 named selinux.txt
+
+Ans: grep -i selinux >> /test1/test2/selinux.txt
+13.  Export lines from the test2 file with the word sata and export those lines to a new file in the test3 dir named sata.txt.
+ grep -i sata test2 >> /test1/test2/test3/sata.txt
+Permissions:
+14.  The test1,4, & 5 dir should have the user owner of you. (??)
+chown hwondimu: test1
+chown hwondimu: test1/test2/test3/test4
+chown hwondimu: test1/test2/test3/test4/test5
+15.  Test 2, should have the user owner as Jerry and Steve should be the user owner of test3.
+chown Jtest:  test1/test2
+chown Sdoe: /test1/test2/test3
+16.  The file in the test2 dir should have rwx, for user, rwx, for group and r for others
+chmod 774 /test1/test2
+17.   The file in test3 should have rwx,
+chmod 777 test1/test2/test3

@@ -1,0 +1,74 @@
+Fire walls
+
+DESCRIPTION
+       Iptables  is  used  to set up, maintain, and inspect the tables of IPv4
+       packet filter rules in the Linux kernel.  Several different tables  may
+       be  defined.   Each  table contains a number of built-in chains and may
+       also contain user-defined chains.
+
+       Each chain is a list of rules which can match a set of  packets.   Each
+       rule specifies what to do with a packet that matches.  This is called a
+       ‘target’, which may be a jump to a user-defined chain in the  same  table.
+TARGETS
+       A  firewall  rule specifies criteria for a packet and a target.  If the
+       packet does not match, the next rule in the chain is the  examined;  if
+       it does match, then the next rule is specified by the value of the tar-
+       get, which can be the name of a user-defined chain or one of  the  special values ACCEPT, DROP, QUEUE or RETURN.
+
+Syntax to blocking IP
+#iptables -I INPUT -p tcp --dport 22 -s 10.1.11.99 -j REJECT
+
+-p, --protocol: a set of rules governing the exchange or transmission of data between devices ...
+
+             The  protocol of the rule or of the packet to check.  The specified protocol can be
+             one of tcp, udp, udplite,  icmp,  esp,  ah, sctp  or  all, or it can be a numeric value, representing one of
+             these protocols or  a  different  one.   A  protocol  name  from /etc/protocols  is also allowed.  A "!" argument
+             before the protocol inverts the test.  The number zero is equivalent  to  all.
+             Protocol  all  will  match  with  all  protocols and is taken as default when this option is omitted.
+             TCP and UDP are transport layer protocols, port-to-port protocols that work on the top of the IP protocols
+             to deliver the packet from the originating port to the IP services, and from IP services to the destination port.
+
+By default there are three tables in the kernel that contain sets of rules.
+
+The filter table is used for packet filtering.
+
+              root@debian6~# iptables -t filter -L
+              Chain INPUT (policy ACCEPT)
+              target     prot opt source               destination
+
+              Chain FORWARD (policy ACCEPT)
+              target     prot opt source               destination
+
+              Chain OUTPUT (policy ACCEPT)
+              target     prot opt source               destination
+The nat table is used for address translation.
+
+              root@debian6~# iptables -t nat -L
+              Chain PREROUTING (policy ACCEPT)
+              target     prot opt source               destination
+
+              Chain POSTROUTING (policy ACCEPT)
+              target     prot opt source               destination
+
+              Chain OUTPUT (policy ACCEPT)
+              target     prot opt source               destination
+
+The mangle table can be used for special-purpose processing of packets.
+Series of rules in each table are called a chain. We will discuss chains and the nat table later in this chapter.
+
+About packet filtering
+Packet filtering is a bit more than packet forwarding. While packet forwarding uses only a routing table to make decisions,
+packet filtering also uses a list of rules. The kernel will inspect packets and decide based on these rules what to do with each packet.
+
+The filter table in iptables has three chains (sets of rules).
+The INPUT chain is used for any packet coming into the system.
+The OUTPUT chain is for any packet leaving the system.
+And the FORWARD chain is for packets that are forwarded (routed) through the system.
+
+Blocking IP
+#iptables -I INPUT -p tcp --dport 22 -s 10.1.13.45 -j REJECT
+-I (insert)
+-p (protocol)
+-dport (destination port)
+-s (source, what ip the action is being used on)
+-j (jump, the action being taken on)

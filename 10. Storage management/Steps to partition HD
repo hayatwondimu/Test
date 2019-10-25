@@ -1,0 +1,19 @@
+Steps to Partitioning
+
+a) Create disk
+  - go to Vsphere in VMware to add a disk to partition
+  - right click your VM--edit settings -- add hard disk ---new harddisk
+  - go to new hard disk and select a size
+b) Format disk on command line (use command fdisk to manipulate partition table)
+#fdisk -cu /dev/sda
+(flag -c = switching off DOS-compatible mode---- flag u= give size in sector, not cylinder)
+(the /dev/sda, represents which HD to partition, sda=)
+**Modern SATA and USB drives are represented like sda, sdb etc. Linux stores every device in /dev directory.
+**So, the absolute path for first SATA hard drive will be /dev/sda. The path to cdrom will be /dev/cdrom. The first partition will be represented as /dev/sda1, the second as /dev/sda2, and so on.
+
+
+c) Create physical volume
+d) Create volume groups
+e) Logical volume
+f) File system (better to create on LV vs Physical Volume)
+g) Mount file system

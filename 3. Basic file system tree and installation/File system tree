@@ -1,0 +1,16 @@
+/boot
+/bin
+/sbin
+/dev
+/etc
+/media
+/home
+/lib
+/lost+found
+/mnt
+/opt
+/proc
+/root
+/tmp
+/usr
+/var

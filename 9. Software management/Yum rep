@@ -1,0 +1,25 @@
+Setting up yum repository
+YUM = yellow dog update manager
+
+files to know
+# vi /etc/yum.repos.d
+[Base]     --> the ID of the repository
+name= yumexample      --> the name of the repository
+baseurl= file://(packages)     --> if it's local/ internal it has to be file://directory
+                               --> if it is external it has to be http:///website
+gpgcheck= no                  --> key
+enable=1          --> 1= on/activate 0= off/ not activate
+
+
+yum commands to know
+#yum check-update     --> checks what needs an update / checks repositories
+#yum update       --> updates your apps on server, the kernel version
+#yum info nameofpackage      --> gives info on package
+#yum search nameofpackage   --> searching for package/application
+#yum list installed  --> lists what has been installed by
+#yum history
+#yum history undo
+
+
+
+Creating your own repos

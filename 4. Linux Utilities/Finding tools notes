@@ -1,0 +1,9 @@
+To copy lines that only have specific word(s) in it and paste that info into a new file
+#grep -i word /home/hayat/tmp/example >> /home/hayat/testdir
+this line searched for the word "word" (-i = not case sensitive in search) within the file example (in tmp)
+and appended all lines with the word "word" into the file testdir in the home of hayat --> /home/hayat/testdir
+it created a file called testdir, it can only paste in file not a directory)
+
+___________________________________________
+to find a word in a file
+#find / -iname filename

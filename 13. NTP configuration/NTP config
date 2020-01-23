@@ -1,0 +1,25 @@
+NTP configuration
+Network time protocol is used to synchronize the time on your Linux system with a centralized NTP server.
+
+NTP program is configured either in the
+#/etc/ntp.conf (or /etc/xntp.conf) directory
+
+The term NTP is referring to the protocol itself (port 123 on the traditional TCP), and also the client and server
+program running on the networked computers.
+It is designed to mitigate the effects of variable network latency and can usually maintain time to within tens of milliseconds over the public Internet. The accuracy on local area networks is even better, up to one millisecond.
+"When you are initially setting up the clock, it takes six exchanges within 5 to 10 minutes before the clock is set up.
+Once the clocks in a network are synchronized, the client(s) update their clocks with the server once every 10 minutes. This is usually done through
+a single exchange of message(transaction). These transactions use port number 123 of your system."
+
+To use NTP
+1. install the ntp package
+#yum install ntp ----------> this automatically creates a directory, file, user/ group ID permission
+-------------------run #yum list installed or #rpm -qa (or -qac) |grep ntp ------------
+to check if the ntp package is already installed, the #rpm version ce=hecks where the configuration file for ntp is and shows which version of ntp it is
+
+2. Next run
+#service ntpd status  -------if it says "stopped", run #service ntpd start
+#ntpd -p will show what your server is "pointing to" currently
+
+Make sure to make a backup copy of the /etc/ntp.conf
+#cp /etc/ntp.conf /etc/ntp.conf.backup20191024

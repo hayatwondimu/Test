@@ -23,13 +23,15 @@ Run
 #rename .conf .backup *.conf    ---> this renamed all files that ended with .conf to .backup
 
 3. Find all files created after January 31st 2018 and copy them to ~/backup2018
-###find /(under the root) -type(what type, f or d) f(file but d for directory) -newerm(modify)t(time) '01/31/2019' -exec (execute previous and also what comes next) cp {} (variables)
-#find . -type f -newermt '01/31/2019' -exec cp {} ~ /backup2018 \;
+###find /(under the root) -type(what type, f or d) f(file but d for directory) -newerm(modify)t(time) '01/31/2019' -exec (execute previous and also what comes next) cp {} (variables , add ; ()
+#find . -type f -newermt '2018-01-31' -exec cp {} ~ /backup2018 \;
+This command is finding and copying at the same time
 
 4. Create a hard link to ~/backup2018 named hdlbackup2018
 Create a soft link to ~/backup named sftletcbackup
 Set attribute on ~/backup2018etc
 
+KNOW THE DIFF BETWEEN HARD LINK AND SOFT LINK***
 
 ln (link) -s ( the -s makes it a soft link) (without -s it's a hard link)
 #ln -s ~/backup2018/ hdlbackup2018      --> makes a soft link connecting the info from backup2018 to hdlbackup2018
@@ -43,4 +45,4 @@ ln (link) -s ( the -s makes it a soft link) (without -s it's a hard link)
 #ln ~/backup sftletcbackup
 #mkdir ~/backup
 #touch backups
-#ln ~/backups sftletcbackup 
+#ln ~/backups sftletcbackup

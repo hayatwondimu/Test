@@ -1,0 +1,28 @@
+Crontab is a job scheduler / a scheduled backup
+"ex: want to patch or have something done at a specific time"
+
+Crontab command and common flags
+
+#crontab -e  ---> edits the crontab jobs
+#crontab -l  ---> lists the crontab jobs
+#crontab -r ---> delete the crontab jobs (all, best to vi into /etc/crontab and make edits here)
+#crontab -i ---> prompts before deleting users Crontab
+#crontab -s ---> selinux context
+
+
+
+Steps to use Crontab
+
+1. Have a script written, create one by creating a file and vi/cat the instructions for the crontab job
+- be sure to put the script in a file sys dir that can be accessed by all users on the server (/var, /opt, /usr/local), this way, when
+you create a crontab for another user, that user can have access to the script when editing the "crontab -eu user"
+SCRIPT
+                              #vi /var/hayatscript
+within the vi -->   #!/bin/bash                ---> she bang reads to say it is a script and its in bin/bash
+                    mkdir /tmp/gotosleep        ---> make a dir "gotosleep" in tmp
+                    yum check-update >> /tmp/gotosleep/crontabpractice   --> append the yum check-update results in crontabpractice
+                    :x!    ---> save and quit
+
+TO SET UP CRONTAB
+#crontab -e           *(mins) *(hours) *(day of month) *(month of year) *(0-6,sun-sat)
+30 14 24 10 4   /var/hayatscript ---- this crontab is set for 2:30 pm on the 24th of oct on Thursday

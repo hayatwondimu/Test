@@ -30,7 +30,9 @@ You need one partition that will be used as Linux swap space. This is space on y
 memory allows your computer to run large programs and perform complex tasks even if it does not have enough physical RAM to do the job.
 It is lot slower than physical RAM, but it still works.
 
-
+Formatting is the process of writing a filesystem to the disk and preparing it for file operations. A filesystem is the system that
+structures data and controls how information is written to and retrieved from the underlying disk. Without a filesystem, you could not
+use the storage device for any file-related operations.
 
 Historically, the general rule for swap partition size was to allocate twice the amount of physical RAM. But as computers have now gained larger
 memory capacities, this rule is outdated. The basic idea is that if you are short on RAM with plenty of drive space, go large. If you’re

@@ -1,0 +1,14 @@
+Chapter 17
+<VirtualHost *:80>
+        ServerAdmin webmaster@dummy-host.example.com
+        DocumentRoot /www/docs/dummy-host.example.com
+        ServerName dummy-host.examples.com
+        ErrorLog logs/dummy-host.example.com-error_log
+        CustomLog logs/dummy-host.example.com-access_log common
+</VirtualHost>
+
+vi /var/www/http/index.html
+--this is where you write to edit your website...
+then go to the vmware and go to firfox.. enter
+---http://10.1.11.99  and this will show what you did
+ 

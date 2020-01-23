@@ -4,7 +4,6 @@ in linux .rpm shows that it is a software that has been downloaded (using yum or
 rpm --> redhat package manager
 
 
-
 wget command... and use link to download
 curl command ...and use link to download
 ansible ... quicker way to make changes for groups instead of one by one
@@ -37,3 +36,23 @@ it will ask which partition from that HD
 fdisk -L  /dev/sdb
 
 BlkID /dev/sda  --- will give you the UID of the partition
+
+if you cant ssh into machine, ping your ip first
+if no return,
+go to the vmware, into terminal and run
+#ifconfig
+trouble shoot the network
+#system-config-networksthis opens the networks
+(change the incorrect information, ex edit the subnet to 255.255.0.0)
+then Run
+#service network restart
+
+go back to putty and Run
+#ping 10.1.11.99
+_____________________________________________________________________________
+study ISO,
+
+command to find the latest version ---
+#rpm -qa and name of applications
+or run
+#yum install httpd ( and itll show what version you have)

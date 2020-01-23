@@ -1,0 +1,47 @@
+FTP- File transfer protocol (not secure/ encrypted)
+- a standard protocol that is used to transfer file between computers + servers over a network
+-FTP is the language the comp use to transfer files over a TCP/IP networks
+    -Server (person 1) can make their files available for other people to download by uploading
+    their files to the FTP server + then clients (others) can connect to the FTP server + download the files using the FTP protocol
+    The server doesn't have to set up a designated FTP server to do this b/c they can configure their own computer to act as an FTP server
+Ways to transfer files using FTP
+  1. use the internet browser (standard)
+        - you would need to put "ftp://10.1.13.5"
+          *ftp = prefix for FTP
+          *the whole line is the ftp servers address
+  2. FTP client
+        - There are multiple FTP client (services?), the most popular is "filezila" which can be downloaded for free
+          *Host--> ftp://10.1.13.5      username:exhayat_ntp        password:mts1234
+
+-FTP and SFTP are connection oriented protocols, they both use TCP for file transfer which guaranteed delivery.
+
+Why FTP uses 2 TCP connection ports
+- Port 21 : Control connection -> to pass control info / conttrol traffic. The FTP server will listen for client connections on this port,
+client sends authentications to be approved in order to have access to the data
+- Port 22 : Data connection -> to send files between the client and the server since connection has been established with port 21 after client sent authentication at port 21.
+-------------------------------------------------------------------------
+
+VSFTPD - Very secure file transfer protocol daemon
+- VSFTPD is the default FTP server and one of the few FTP service that can chroot jail.
+
+*To install vsftdp
+#yum install vsftpd
+
+*to edit the configuration file
+#vi /etc/vsftpd/vsftpd.config  (will chroot by default)
+
+_______________________________________________________________________
+SFTP- Secure file transfer protocol
+SFTP is similar to FTP but has a layer of security + the information is encrypted and secure, data is encrypted using secure shell
+-Authenticates the user and the server
+-Uses port 22
+-Connection oriented protocol, uses TCP for file transfer which guaranty file delivery
+
+
+_______________________________________________________________________
+TFTP - Trivial file transfer protocols-very simple transfer protocol
+-very simple transfer protocol
+-not used to transfer file over the internet like FTP SFTP. Mainly used to transfer files with in the Local area network.
+Ex:- Usually used to transfer configuration files and firm wave images to network devices such as firewalls and routers.
+-TFTP is a connection less protocol that uses UDP instead of TCP and it not as frequently used like FTP and SFTP
+-No security during data transfer

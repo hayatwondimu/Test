@@ -1,19 +1,127 @@
-Steps to Partitioning
+ Steps to Partitioning
 
 a) Create disk
   - go to Vsphere in VMware to add a disk to partition
   - right click your VM--edit settings -- add hard disk ---new harddisk
   - go to new hard disk and select a size
-b) Format disk on command line (use command fdisk to manipulate partition table)
+  -disk provisioning *select thin provisioning****
+
+b) #lsblk
+run this command to see what is there so far.
+
+
+c)Format disk on command line (use command fdisk to manipulate partition table)
+#fdisk is a disk manipulator!!
+-c (turns off DOS because we are not working with MSDOS)
+-u (change size from cylinder)
 #fdisk -cu /dev/sda
 (flag -c = switching off DOS-compatible mode---- flag u= give size in sector, not cylinder)
 (the /dev/sda, represents which HD to partition, sda=)
+
+NPTL -"never poke the loser"
+
+N- add new partition
+p - primary
+Skip the first sector--
++1G - to add gig to this partition and for the specific part you're using it for
+t - to prompt change to the patitions system id (hexcode for a specific partition comes next)
+1 - partition number
+l - select l to see the list of different hexcodes
+83 - the hexcode
+optional - p (to view what you just did), - n to add a new partition  w- to save the partition
+or q- to quit without making any changes
+
+after saving use
+#partprobe /dev/sdb   ---this makes the kernel recognize this partitions
+
+run
+#fdisk   or    #lsblk  to check it
+
+now format the partition by giving it a file system (make sure to use the correct ext)
+#mkfs.ext4 /dev/sdb1  --- this formatted the partition (linux partition)
+
+make a mount point ..
+1. make a dir under the root directory
+#mkdir /newmount
+2. mount it
+#mount /dev/sdb1 /newmount
+3. check it
+#mount  ---this shows all mount points and your new one should be there
+
+add it to the fstab..
+MAKE A COPY OF THE FSTAB *** cp /etc/fstab /etc/fstab.bk
+1. #blkid   ----this gives the UUID for your partition,  copy it and paste it into the fstab
+2. #vi /etc/fstab
+3. not paste the UUID and format it to look like
+UUID ....name of mount dir....ext4(type of FS)....defaults...11 or 12 or 00
+
+Format the Swap   (swap partition)  ---swap doesn't get mounted like a FS does
+#mkswap /dev/sdb2 -----(gives UUID of swap)
+#swapon -a /dev/sdb2  (turns on the swap)
+#blkid ... see UUID for swap, copy it
+#vi /etc/fstab ...
+add the new line for swap using the UUID for swap
+ex: UUID .... sswap....swap.....default ....11
+
+Format the LVM
+#pvcreate /dev/sbd3    ---(command to create pv and the path to the partition)
+#pvdisplay to see what you have created -------------there is also #pvremove
+#vgcreate group1 /dev/sdb3   ----command, name new vol group, then pv (path to the partition)
+#vgdisplay to see the group you just created
+
+#lvcreate -L +2G -n lvname1  group1  /dev/sdb1
+*L because not all the space is being used, you can specify how much
+*l works in percentage, and can o
+*n creates the lv name   (use -r  to implement now, on the fly)
+*group1 --put the group the lvm is being pulled from
+*path to the partition
+
+Now format it
+#mkfs.ext4 /dev/mapper/group1-lvname1 /dev/sdb2
+*you must use /dev/mapper to format a lvm
+
+Now mount it
+#mkdir /lvmmount
+#mount /dev/mapper/group1-lvname /dev/sdb2
+#mount  --- to see the exchanges
+#blkid  ----to get the UUID of the /dev/mapper
+*****make sure you copy the UUID from the line that says /dev/mapper because this is the one for the lvm
+#vi /etc/fstab
+--add a line using the /dev/mapper UUID and edit it to look like the others (/dev/mapper does not NEED a UUID in fstab
+you can use the dev/mapper absolute path)
+ex :  UUID .../lvmount ....ext4 .....default .....11
 **Modern SATA and USB drives are represented like sda, sdb etc. Linux stores every device in /dev directory.
 **So, the absolute path for first SATA hard drive will be /dev/sda. The path to cdrom will be /dev/cdrom. The first partition will be represented as /dev/sda1, the second as /dev/sda2, and so on.
 
 
+
+
+
+Reminder:
+For LVM ----------------------------------------------
 c) Create physical volume
 d) Create volume groups
 e) Logical volume
 f) File system (better to create on LV vs Physical Volume)
 g) Mount file system
+
+For SWAP ---------------------------------------------
+no need for pv, vg, lvm ...
+make sure to turn swap on
+
+For ROOT ---------------------------------------------
+
+
+** make sure to get the UUID from the
+#blkid
+copy and past the UUID into the /ect/fstab and write out the rest of the information using the other lines
+in fstab
+
+the way disk can be split
+-make sure to leave space for overhead
+-LVM should get majority
+-Swap should be on every partition
+
+
+If you
+#mount -o remount,rw /

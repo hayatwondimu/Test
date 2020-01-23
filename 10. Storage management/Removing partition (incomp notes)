@@ -10,4 +10,13 @@ it will ask which partition from that HD
 
 fdisk -L  /dev/sdb
 
-BlkID /dev/sda  --- will give you the UID of the partition 
+BlkID /dev/sda  --- will give you the UID of the partition
+
+
+*** make sure when removing a HD that the fstab
+in  /etc/fstab should be unmounted of the partitions from that HD
+
+unmounted
+unmount the dev/mapper
+/remove from /etc/fstab
+#vgremove
